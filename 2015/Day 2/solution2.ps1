@@ -27,11 +27,18 @@ $finalAnswer = 0
 $minimum = $null
 
 foreach ($finalPresent in $presents) {
-    $tempArray = @($finalPresent.side1,$finalPresent.side2,$finalPresent.side3)
-    $minimum = ($tempArray | Measure -Minimum).Minimum
-    $currentPresentFeet = $minimum + $finalPresent.feet
-    $finalAnswer += $currentPresentFeet
-    write-host "$minimum + $($finalPresent.feet) = $currentPresentFeet"
+    $length = [int]$finalPresent.length+[int]$finalPresent.length
+    $width = [int]$finalPresent.width+[int]$finalPresent.width
+    $height = [int]$finalPresent.height+[int]$finalPresent.height
+    $tempArray = @($length,$width,$height)
+    $sorted = $tempArray | Sort-Object
+    $lowest = $sorted[0]
+    $secondLowest = $sorted[1]
+    $wrapAround = $lowest+$secondLowest
+    $bow = $finalPresent.length*$finalPresent.width*$finalPresent.height
+    $totalRibbon = [int]$wrapAround+[int]$bow
+    $finalAnswer = $finalAnswer+$totalRibbon
+    write-host "$wrapAround+$bow=$totalRibbon ===== $finalAnswer"
 }
 
 write-host $finalAnswer
