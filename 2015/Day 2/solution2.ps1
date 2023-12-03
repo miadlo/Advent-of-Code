@@ -24,7 +24,6 @@ foreach ($present in $dimensions) {
 }
 
 $finalAnswer = 0
-$minimum = $null
 
 foreach ($finalPresent in $presents) {
     $length = [int]$finalPresent.length+[int]$finalPresent.length
