@@ -1,12 +1,12 @@
-$partsLayout = Get-Content '.\2023\Day 3\inputtest.txt'
+$partsLayout = Get-Content '.\2023\Day 3\input.txt'
 $parsedLines = New-Object System.Collections.ArrayList
-$currentLine = New-Object System.Collections.ArrayList
 
 $lineNumber = 0
 
 foreach ($line in $partsLayout){
     $chars = $line.ToCharArray()
     $position = 0
+    $currentLine = New-Object System.Collections.ArrayList
     foreach ($char in $chars){
         $currentWorkingData = [PSCustomObject]@{
             lineNumber = $lineNumber
@@ -16,14 +16,17 @@ foreach ($line in $partsLayout){
         $currentLine += $currentWorkingData
         $position++
     }
-    $parsedLines.add($currentLine)
-    $lineNumber++
+    $parsedLines.add($currentLine) | out-null
+    $linenumber++
 }
-$tempString
-foreach ($line in $parsedLines){
-    foreach ($temp in $line){
-        $tempString += $temp.character
+
+$lineNumber = 0
+
+for ($lineNumber;$lineNumber -le (($parsedLines[-1].lineNumber)[0]);$lineNumber++){
+    $stringTest = $null
+    $workingLine = $parsedLines | Where-Object {$_.lineNumber -eq $lineNumber}
+    foreach ($character in $workingLine){
+        $stringTest += $character.character
     }
-    $tempstring += "`n"
+    write-host $stringTest
 }
-write-host $tempString
